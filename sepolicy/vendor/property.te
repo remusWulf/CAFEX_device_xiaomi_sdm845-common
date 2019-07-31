@@ -43,3 +43,5 @@ not_compatible_property(`
     system_public_prop(vendor_boostframework_prop)	
 ')
 
+type vendor_qspm_prop, property_type;
+
