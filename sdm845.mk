@@ -388,7 +388,9 @@ PRODUCT_PACKAGES += \
     libdisplayconfig.vendor \
     libnl \
     libqdMetaData \
-    libqdMetaData.system
+    libqdMetaData.system \
+    libminijail \
+    libavservices_minijail
 
 PRODUCT_BOOT_JARS += \
     WfdCommon
