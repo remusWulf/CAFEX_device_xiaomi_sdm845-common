@@ -273,6 +273,11 @@ PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-vendorcompat \
     libprotobuf-cpp-lite-vendorcompat
 
+# QTI Perf
+PRODUCT_PACKAGES += \
+   libtflite \
+   libtextclassifier_hash
+
 # QTI
 PRODUCT_PACKAGES += \
     libqti_vndfwk_detect.vendor
