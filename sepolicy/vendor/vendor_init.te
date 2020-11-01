@@ -1,2 +1,13 @@
-# Allow vendor_init to write to sysfs_ssr_toggle
+allow vendor_init default_prop:file read;
+allow vendor_init freq_prop:property_service set;
+allow vendor_init proc:file create;
+allow vendor_init sysfs:file create;
+allow vendor_init sysfs_devfreq:file create;
+allow vendor_init sysfs_devices_system_cpu:file create;
+allow vendor_init sysfs_scsi_host:file create;
 allow vendor_init sysfs_ssr_toggle:file w_file_perms;
+
+userdebug_or_eng(`
+allow vendor_init persist_debug_prop:file read;
+allow vendor_init tombstone_data_file:dir { getattr ioctl open read };
+')
