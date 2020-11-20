@@ -25,7 +25,6 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 import android.content.SharedPreferences;
-
 import com.lineageos.settings.pocopref.R;
 import com.lineageos.settings.pocopref.CustomSeekBarPreference;
 import com.lineageos.settings.pocopref.SecureSettingListPreference;
@@ -35,7 +34,7 @@ public class KCalSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener, Utils {
 
     private final FileUtils mFileUtils = new FileUtils();
-    private SecureSettingListPreference mXiaomiProfilePreference;
+
     private SwitchPreference mEnabled;
     private CustomSeekBarPreference mRed;
     private CustomSeekBarPreference mGreen;
@@ -45,7 +44,7 @@ public class KCalSettings extends PreferenceFragment implements
     private CustomSeekBarPreference mContrast;
     private CustomSeekBarPreference mHue;
     private SharedPreferences mPrefs;    
-      private static String mXiaomiProfile;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -58,10 +57,6 @@ public class KCalSettings extends PreferenceFragment implements
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         
         setPreferencesFromResource(R.xml.preferences_kcal, rootKey);
-
-
-        mXiaomiProfilePreference = (SecureSettingListPreference) findPreference(XIAOMI_DISPLAY_PROFILE);
-        mXiaomiProfilePreference.setOnPreferenceChangeListener(this);
 
         mEnabled =  findPreference(PREF_ENABLED);
         mEnabled.setChecked(mPrefs.getBoolean(KCalSettings.PREF_ENABLED, false));        
@@ -130,7 +125,6 @@ public class KCalSettings extends PreferenceFragment implements
         final String key = preference.getKey();
 
         switch (key) {
-
             case PREF_ENABLED:
                 Boolean enabled = (Boolean) value;
                 mPrefs.edit().putBoolean(PREF_ENABLED, enabled).apply();            
@@ -148,43 +142,35 @@ public class KCalSettings extends PreferenceFragment implements
                 FileUtils.WriteValue(COLOR_FILE_CONT, Integer.parseInt(Cont) + CONTRAST_OFFSET);
                 FileUtils.WriteValue(COLOR_FILE_VAL, Integer.parseInt(Value) + VALUE_OFFSET);
                 FileUtils.WriteValue(COLOR_FILE_HUE, Integer.parseInt(hue));                                                         
-
                 break;
 
             case PREF_RED:
                 mPrefs.edit().putInt(PREF_RED, (int) value).apply();            
                 mFileUtils.setValue(COLOR_FILE_RED, (int) value);
-
                 break;
 
             case PREF_GREEN:
                 mPrefs.edit().putInt(PREF_GREEN, (int) value).apply();          
                 mFileUtils.setValue(COLOR_FILE_GREEN, (int) value);
-
                 break;
 
             case PREF_BLUE:
                 mPrefs.edit().putInt(PREF_BLUE, (int) value).apply();            
                 mFileUtils.setValue(COLOR_FILE_BLUE, (int) value);
-
                 break;
 
             case PREF_SATURATION:
                 mPrefs.edit().putInt(PREF_SATURATION, (int) value).apply();            
                 mFileUtils.setValue(COLOR_FILE_SAT, (int) value + SATURATION_OFFSET);
-
                 break;
 
             case PREF_VALUE:
                 mPrefs.edit().putInt(PREF_VALUE, (int) value).apply();             
                 mFileUtils.setValue(COLOR_FILE_VAL, (int) value + VALUE_OFFSET);
-
                 break;
-
             case PREF_CONTRAST:
                 mPrefs.edit().putInt(PREF_CONTRAST, (int) value).apply();              
                 mFileUtils.setValue(COLOR_FILE_CONT, (int) value + CONTRAST_OFFSET);
-
                 break;
 
             case PREF_HUE:

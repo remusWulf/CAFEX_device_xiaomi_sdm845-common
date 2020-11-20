@@ -113,15 +113,6 @@
     <!-- Label for feature switch -->
     <string name="switch_bar_off">Off</string>
 
-     <!--Display Modes-->
-    <string name="xiaomi_display_profile_title">Color Profile</string>
-
-    <string name="xiaomi_display_adapt_1">Adapt (Warm)</string>
-    <string name="xiaomi_display_adapt_2">Adapt (Cool)</string>
-    <string name="xiaomi_display_adapt_3">Adapt (Default)</string>
-    <string name="xiaomi_display_enhance">Enhance</string>
-    <string name="xiaomi_display_standard">Standard</string>
-
     <!--    # Touch options -->
     <string name="touch_title">TouchScreen</string>
     <string name="nvt_fw_title">Touch Firmware</string>

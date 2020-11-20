@@ -37,7 +37,8 @@
         android:targetPackage="com.lineageos.settings.pocopref.kcal" />
       </Preference>
   </PreferenceCategory>
- <PreferenceCategory
+
+  <PreferenceCategory
         android:title="@string/thermal_title">
 
   <PreferenceScreen
