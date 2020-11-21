@@ -45,6 +45,14 @@ on early-init
     chown system graphics /sys/kernel/debug/dri/0/debug/recovery_reg
     chown system graphics /sys/kernel/debug/dri/0/debug/recovery_dbgbus
     chown system graphics /sys/kernel/debug/dri/0/debug/recovery_vbif_dbgbus
+    chown system graphics /sys/kernel/debug/dri/0/debug/recovery_dsi_dbgbus
+
+  # Change ownership of sysfs power control node
+    chown system graphics /sys/class/drm/card0/device/power/control
+
+    # Change ownership of sw_sync node
+    chown system graphics /sys/kernel/debug/sync/sw_sync
+    chmod 0666 /sys/kernel/debug/sync/sw_sync
 
     chown root system /dev/kmsg
     chmod 0620 /dev/kmsg
@@ -64,7 +72,6 @@ on init
     chown root system /sys/fs/cgroup/memory/bg/tasks
     chmod 0660 /sys/fs/cgroup/memory/bg/tasks
 
-    mkdir /dev/voxpopuli 0555 system system
 	
 on post-fs
     chmod 0755 /sys/kernel/debug/tracing
@@ -132,37 +139,6 @@ on boot
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
-    # Set Power HAL tunables
-    write /dev/voxpopuli/fling_min_boost_duration   200
-    write /dev/voxpopuli/fling_max_boost_duration   2500
-    write /dev/voxpopuli/fling_boost_topapp         10
-    write /dev/voxpopuli/fling_min_freq_big         1113
-    write /dev/voxpopuli/fling_min_freq_little      1113
-    write /dev/voxpopuli/touch_boost_duration       200
-    write /dev/voxpopuli/touch_boost_topapp         5
-    write /dev/voxpopuli/touch_min_freq_big         1036
-    write /dev/voxpopuli/touch_min_freq_little      1036
-    chmod 0644 /dev/voxpopuli/enable_interaction_boost
-    chmod 0644 /dev/voxpopuli/fling_min_boost_duration
-    chmod 0644 /dev/voxpopuli/fling_max_boost_duration
-    chmod 0644 /dev/voxpopuli/fling_boost_topapp
-    chmod 0644 /dev/voxpopuli/fling_min_freq_big
-    chmod 0644 /dev/voxpopuli/fling_min_freq_little
-    chmod 0644 /dev/voxpopuli/touch_boost_duration
-    chmod 0644 /dev/voxpopuli/touch_boost_topapp
-    chmod 0644 /dev/voxpopuli/touch_min_freq_big
-    chmod 0644 /dev/voxpopuli/touch_min_freq_little
-    chown system system /dev/voxpopuli/enable_interaction_boost
-    chown system system /dev/voxpopuli/fling_min_boost_duration
-    chown system system /dev/voxpopuli/fling_max_boost_duration
-    chown system system /dev/voxpopuli/fling_boost_topapp
-    chown system system /dev/voxpopuli/fling_min_freq_big
-    chown system system /dev/voxpopuli/fling_min_freq_little
-    chown system system /dev/voxpopuli/touch_boost_duration
-    chown system system /dev/voxpopuli/touch_boost_topapp
-    chown system system /dev/voxpopuli/touch_min_freq_big
-    chown system system /dev/voxpopuli/touch_min_freq_little
-	
     chmod 0660 /dev/ttyHS2
     chown bluetooth bluetooth /dev/ttyHS2
 
@@ -263,6 +239,9 @@ on boot
 
     # Create hvdcp_opti directory
     mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
+
+    # limit discard size to 128MB in order to avoid long IO latency
+    write /sys/block/sda/queue/discard_max_bytes 134217728
 
     #sensors log dir
     mkdir /data/vendor/sensors
@@ -415,6 +394,11 @@ on post-fs-data
     copy /vendor/radio/qcril_database/qcril.db /data/vendor/radio/qcril_prebuilt.db
     chown radio radio /data/vendor/radio/qcril_prebuilt.db
     chmod 0660 /data/vendor/radio/qcril_prebuilt.db
+    copy /vendor/radio/qcril_database/qcrilNr.db /data/vendor/radio/qcrilNr_prebuilt.db
+    copy /vendor/etc/qcril_database/qcrilNr.db /data/vendor/radio/qcrilNr_prebuilt.db
+    chown radio radio /data/vendor/radio/qcrilNr_prebuilt.db
+    chmod 0660 /data/vendor/radio/qcrilNr_prebuilt.db
+
     # File flags for prebuilt ril db file
     write /data/vendor/radio/prebuilt_db_support 1
     chown radio radio /data/vendor/radio/prebuilt_db_support
@@ -489,9 +473,9 @@ service vendor.ssr_setup /system/vendor/bin/ssr_setup
     oneshot
     disabled
 
-service vendor.ss_ramdump /system/bin/subsystem_ramdump_system 2
-    class late_start
-#   user system
+service vendor.ss_ramdump /system/vendor/bin/subsystem_ramdump
+    class main
+    user system
     group system
     disabled
 
@@ -525,7 +509,7 @@ on property:persist.vendor.ssr.restart_level=*
 on property:persist.vendor.ssr.enable_ramdumps=1
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
     mkdir /data/vendor/ramdump_ssr 770 system system
-#   start vendor.ss_ramdump
+    start vendor.ss_ramdump
 
 on property:persist.vendor.ssr.enable_ramdumps=0
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
@@ -544,6 +528,8 @@ on property:sys.boot_completed=1
     #WDSP FW boot sysfs node used by STHAL
     chown media audio /sys/kernel/wdsp0/boot
     chown media audio /sys/kernel/wcd_cpe0/fw_name
+    #Reinit lmkd to reconfigure lmkd properties
+    setprop lmkd.reinit 1
 
 on property:persist.vendor.radio.atfwd.start=false
     stop vendor.atfwd
@@ -556,24 +542,6 @@ on property:persist.debug.trace=1
     mkdir /data/core 0777 root root
     write /proc/sys/kernel/core_pattern "/data/core/%E.%p.%e"
 
-on property:init.svc.wpa_supplicant=stopped
-    stop dhcpcd
-
-on property:vendor.bluetooth.dun.status=running
-    start vendor.bt-dun
-
-on property:vendor.bluetooth.dun.status=stopped
-    stop vendor.bt-dun
-
-on property:ro.bluetooth.ftm_enabled=true
-    start ftmd
-
-on property:vendor.bluetooth.startbtlogger=true
-    start vendor.bt_logger
-
-on property:vendor.bluetooth.startbtlogger=false
-    stop vendor.bt_logger
-
 on property:vendor.media.target.version=*
     setprop vendor.sys.media.target.version ${vendor.media.target.version}
 
@@ -585,6 +553,7 @@ service qcom-c_core-sh  /vendor/bin/init.qcom.class_core.sh
 service qcom-c_main-sh /vendor/bin/init.class_main.sh
     class main
     user root
+    group root system
     oneshot
 
 #xiaomi bsp-wifi: start vendor.cnss_diag is added by bsp-wifi
@@ -1023,7 +992,9 @@ service profiler_daemon /system/bin/profiler_daemon
 
 service charger /system/bin/charger
     class charger
-    group system graphics
+    user system
+    group system graphics input
+    capabilities SYS_BOOT
     seclabel u:r:charger:s0
 
 service vendor.ssr_diag /system/vendor/bin/ssr_diag
@@ -1245,19 +1216,3 @@ service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
     socket audio_hw_socket seqpacket 0666 system system
     task_profiles ProcessCapacityHigh HighPerformance
     onrestart restart audioserver
-
-
-service vendor.contexthub-hal-1-0 /vendor/bin/hw/android.hardware.contexthub@1.0-service
-    override
-    class hal
-    interface android.hardware.contexthub@1.0::IContexthub default
-    user system
-    group system
-    disabled
-
-
-on property:interaction.boost=0
-    write /dev/voxpopuli/enable_interaction_boost "0"
-
-on property:interaction.boost=1
-    write /dev/voxpopuli/enable_interaction_boost "1"	
