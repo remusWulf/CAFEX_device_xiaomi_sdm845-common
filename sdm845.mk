@@ -320,6 +320,11 @@ PRODUCT_COPY_FILES += \
 -include vendor/qcom/common/perf/perf-vendor.mk
 -include vendor/qcom/common/wfd/wfd-vendor.mk
 -include vendor/qcom/common/av/av-vendor.mk
+-include vendor/qcom/common/telephony/telephony-vendor.mk
+-include vendor/qcom/common/bt/bt-vendor.mk
+-include vendor/qcom/common/audio/audio-vendor.mk
+-include vendor/qcom/common/telephony-diag/telephony-diag-vendor.mk
+
 
 # Radio
 PRODUCT_PACKAGES += \
