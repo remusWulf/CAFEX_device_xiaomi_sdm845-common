@@ -1,3 +1,4 @@
 allow radio hal_cacert_hwservice:hwservice_manager find;
 allow radio hidl_base_hwservice:hwservice_manager add;
 allow radio self:socket create;
+binder_call(radio, gpuservice)
