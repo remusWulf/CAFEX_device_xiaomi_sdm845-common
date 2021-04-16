@@ -52,8 +52,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.telephony.ims.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.ims.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
-    frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
-    frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.vr.high_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vr.high_performance.xml \
     frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute-0.xml \
     frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml \
@@ -133,7 +131,6 @@ PRODUCT_PACKAGES += \
     init.class_main.sh \
     init.qcom.class_core.sh \
     init.qcom.sdio.sh \
-    init.qcom.usb.sh \
     init.qti.ims.sh \
     init.crda.sh \
     init.qcom.coex.sh \
@@ -145,8 +142,6 @@ PRODUCT_PACKAGES += \
     init.qcom.sh \
     init.qti.fm.sh \
     init.qcom.rc \
-    init.msm.usb.configfs.rc \
-    init.qcom.usb.rc \
     init.target.rc \
     ueventd.qcom.rc \
     init.performance.rc \
@@ -348,7 +343,7 @@ PRODUCT_COPY_FILES += \
 -include device/qcom/common/media/qti-media.mk
 -include vendor/qcom/common/perf/perf-vendor.mk
 -include vendor/qcom/common/av/av-vendor.mk
-
+-include device/qcom/common/usb/qti-usb.mk
 -include vendor/qcom/common/bt/bt-vendor.mk
 -include vendor/qcom/common/audio/audio-vendor.mk
 -include vendor/qcom/common/wfd/wfd-vendor.mk
@@ -393,13 +388,9 @@ PRODUCT_SOONG_NAMESPACES += \
 # Telephony
 PRODUCT_PACKAGES += \
     extphonelib \
-
     extphonelib-product \
-
     extphonelib.xml \
-
     extphonelib_product.xml \
-
     ims-ext-common \
     ims_ext_common.xml \
     qti-telephony-hidl-wrapper \
@@ -410,8 +401,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     telephony-ext
-
-
 
 # Tethering
 PRODUCT_PACKAGES += \
@@ -429,10 +418,6 @@ PRODUCT_PACKAGES += \
 # Trust HAL
 PRODUCT_PACKAGES += \
     vendor.lineage.trust@1.0-service
-
-# USB
-PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service
 
 # Vibrator
 PRODUCT_PACKAGES += \
@@ -642,3 +627,9 @@ PRODUCT_PACKAGES += \
     libstdc++.vendor \
     vendor.qti.hardware.camera.device@1.0.vendor \
     libtinyxml.vendor
+
+PRODUCT_BOOT_JARS += \
+    QPerformance \
+    UxPerformance \
+    QXPerformance
+    
