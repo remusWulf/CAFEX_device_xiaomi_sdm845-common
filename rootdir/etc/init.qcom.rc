@@ -1027,6 +1027,10 @@ service charger_monitor /system/bin/charger_monitor
     group root
     disabled
 
+on property:vold.decrypt=trigger_restart_framework
+    restart vendor.audio-hal
+    start vendor-sensor-sh
+
 service qbcharger /charger -m 1
     disabled
     oneshot
