@@ -136,7 +136,19 @@ ro.vendor.extension_library=libqti-perfd-client.so
 #vulkan
 ro.hardware.vulkan=adreno
 ro.hardware.egl=adreno
+#DPM
+
+
+persist.vendor.dpmhalservice.enable=1
+
 
 #Dolby 
 persist.baikal.dolby.enable=false
+
+# Perf
+ro.vendor.perf.scroll_opt=true
+ro.vendor.iocgrp.config=1
+vendor.power.pasr.enabled=true
+
+
 
