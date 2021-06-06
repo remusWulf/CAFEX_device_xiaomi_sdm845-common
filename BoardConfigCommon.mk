@@ -8,6 +8,8 @@ BOARD_VENDOR := xiaomi
 
 BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
 
+BUILD_BROKEN_DUP_RULES := true
+
 COMMON_PATH := device/xiaomi/sdm845-common
 
 # Architecture
@@ -151,6 +153,8 @@ OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 # RIL
 ENABLE_VENDOR_RIL_SERVICE := true
 TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
+PRODUCT_SOONG_NAMESPACES += vendor/qcom/opensource/data-ipa-cfg-mgr
+
 
 # Security patch level
 VENDOR_SECURITY_PATCH := 2020-05-01
