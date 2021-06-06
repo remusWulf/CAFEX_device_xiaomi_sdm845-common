@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2015 The CyanogenMod Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="pocopref_title">MI Extras</string>
+
+    <string name="app_settings_category">Applications Settings</string>
+    <string name="app_settings_title">Per-App Profiles</string>
+    <string name="app_settings_summary">Choose per-app settings for Battery, Performance, Thermal, brightnes etc...</string>
+
+    <string name="scr_off_profile_title">Screen off profile</string>
+    <string name="idle_profile_title">Idle profile</string>
+
+    <!-- Category title -->
+    <string name="display_title">Display</string>
+
+    <!-- KCal -->
+    <string name="device_kcal_title">Display Color Calibration</string>
+    <string name="kcal_enabled_summary">Calibrate Display Using KCAL</string>
+
+    <!-- kcal -->
+    <string name="advanced_settings_kcal">Display Color Calibration</string>
+    <string name="cat_colormanagement">Color Settings</string>
+    <string name="cat_calibration">Display Calibration</string>
+
+    <string name="kcal_enabled_title">Enable KCAL</string>
+    <string name="set_on_boot">Set On Boot</string>
+    <string name="color_red">Red</string>
+    <string name="color_green">Green</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_minimum">Minimum</string>
+    <string name="saturation">Saturation</string>
+    <string name="value">Value</string>
+    <string name="contrast">Contrast</string>
+    <string name="hue">Hue</string>
+    <string name="grayscale">Grayscale Display</string>
+
+    <string name="presets_dialog_title">Select Preset</string>
+    <!-- Presets -->
+    <string name="preset_default">Default</string>
+    <string name="preset_version_1">Version 1</string>
+    <string name="preset_version_2">Version 2</string>
+    <string name="preset_version_3">Version 3</string>
+    <string name="preset_triluminous">Triluminous</string>
+    <string name="preset_deep_black_white">Deep Black and White</string>
+    <string name="preset_deep_natural">Deep Natural</string>
+    <string name="preset_cool_amoled">Cool Amoled</string>
+    <string name="preset_extreme_amoled">Extreme Amoled</string>
+    <string name="preset_warm_amoled">Warm Amoled</string>
+    <string name="preset_hybrid_mamba">Hybrid Mamba</string>
+    <string name="preset_sir_banger">Sir Banger</string>
+    <string name="preset_gerard_extrem_cool">Gerard Extreme Cool</string>
+    <string name="preset_yoyoz808">Yoyoz808</string>
+    <string name="preset_purian">Purian</string>
+    <string name="preset_deep_black_colorful">Deep Black Colorful</string>
+    <string name="preset_vomer_deep_rich">Vomer Deep Rich</string>
+    <string name="preset_franco">Franco</string>
+    <string name="preset_wrinklefree_cool">WrinkleFree Cool</string>
+    <string name="preset_harley_tech">Harley-Tech</string>
+    <string name="preset_perfection">Perfection</string>
+    <string name="preset_banged_up">Banged up</string>
+    <string name="preset_sim_cooler">SimCooler</string>
+    <string name="preset_obsanity">Obsanity</string>
+    <string name="preset_obsanity_ips">Obsanity IPS</string>
+
+    <!-- menu -->
+    <string name="kcal_presets" translatable="false">@string/presets_dialog_title</string>
+    <string name="kcal_reset">Reset</string>
+
+    <!-- Custom seekbar -->
+    <string name="custom_seekbar_value">Value: <xliff:g id="v">%s</xliff:g></string>
+    <string name="custom_seekbar_default_value">Default</string>
+    <string name="custom_seekbar_default_value_to_set">Default value: <xliff:g id="v">%s</xliff:g>\nLong press to set</string>
+    <string name="custom_seekbar_default_value_is_set">Default value is set</string>	
+
+    <!-- Label for feature switch -->
+    <string name="switch_bar_on">On</string>
+
+    <!-- Label for feature switch -->
+    <string name="switch_bar_off">Off</string>
+
+     <!--Display Modes-->
+    <string name="xiaomi_display_profile_title">Color Profile</string>
+
+    <string name="xiaomi_display_adapt_1">Adapt (Warm)</string>
+    <string name="xiaomi_display_adapt_2">Adapt (Cool)</string>
+    <string name="xiaomi_display_adapt_3">Adapt (Default)</string>
+    <string name="xiaomi_display_enhance">Enhance</string>
+    <string name="xiaomi_display_standard">Standard</string>
+
+    <!--    # Touch options -->
+    <string name="touch_title">TouchScreen</string>
+    <string name="nvt_fw_title">Touch Firmware</string>
+    <string name="nvt_fw_summary">Use 9.1.24 version of Novatek firmware for touch panel(Only for users who have NVT Touch screen)</string>
+    
+    <string name="nvt_esd_title">ESD protection</string>
+    <string name="nvt_esd_summary">Enable ESD protection feature</string>
+
+      <!--    # Dolby-->
+    <string name="audio_effects_title">Effects</string>
+    <string name="audio_effects_dolby_title">Enable Dolby</string>
+    <string name="audio_effects_dolby_summary">Enable systemwide Dolby effect (Requires Reboot )</string>
+
+     <!--  Boost Framework-->
+    <string name="bframework_settings">Boost Framework</string>
+    <string name="bframework_settings_title">Boost Framework Configurations</string>
+    <string name="bframework_settings_summary">Enabling Boost options does affect battery life and performance ( Reboot Required to get values applied)</string>
+    <string name="launch_enabled_title">APP Launch Boost</string>
+    <string name="launch_enabled_summary">Enable Faster Loading of APPS</string>    
+    <string name="anim_enabled_title">Animation Boost</string>
+    <string name="anim_enabled_summary">Enables Animation Boost</string>    
+    <string name="install_enabled_title">Package Install Boost</string>
+    <string name="install_enabled_summary">Enables Boost while installing packages</string>                       
+    <string name="fling_enabled_title">Fling Boost</string>
+    <string name="fling_enabled_summary">Enable SCROLL, Prefilling, Fling Boost</string>    
+    <string name="render_enabled_title">Top-App Render Boost</string>
+    <string name="render_enabled_summary">Enables Render Boost for Top APP</string>    
+    <string name="bgt_enabled_title">BGT Boost</string>
+    <string name="bgt_enabled_summary">Boosts background app transitions, like from cached to forground</string>    
+    <string name="cgroup_enabled_title">Cgroup Follow</string>
+    <string name="cgroup_enabled_summary">Enables process Group to follow Cgroup</string>    	
+    <string name="dex_enabled_title">Dex2oat Follow</string>
+    <string name="dex_enabled_summary">Enables process Group to follow Cgroup for Dex2oat only</string>    
+    <string name="benable_enabled_title">B-Service Propagation</string>
+    <string name="benable_enabled_summary">Enable Background service aging propagation on memory pressure</string>    
+    <string name="tsettings_enabled_title">Trim Settings</string>
+    <string name="tsettings_enabled_summary">Enable Aggressive Memory trim settings</string>    
+    <string name="trim_enable_memory">Trim Memory Limit</string>
+    <string name="trim_cache">Cache Memory Percent</string>
+    <string name="trim_empty">Empty Memory Percent</string>
+    <string name="empty_app">Empty App Memory Percent</string>
+    <string name="bg_apps">Background Apps Limit</string>
+    <string name="bservice_limit">Background Services Limit</string>
+    <string name="bservice_age">Background Age Limit(milliseconds)</string>
+
+     <!--  Boost Framework-->
+    <string name="system_settings">System Tweaks</string>
+    <string name="system_settings_title">System Tweaks</string>
+    <string name="system_settings_summary">Set system wide profiles and per-app profiles for thermal, perf, brightness and Power Saving tweaks</string>	
+
+    <!-- Selinux Switch -->
+    <string name="selinux_category">SELinux</string>
+    <string name="selinux_explanation_summary">SELinux is a set of kernel modifications and user-space tools. Changing modes can cause unwanted effects. Use at your own risk.(ROOT REQUIRED)</string>
+    <string name="selinux_mode_title">SELinux mode</string>
+    <string name="selinux_permissive_summary">Permissive</string>
+    <string name="selinux_enforcing_summary">Enforcing</string>
+    <string name="selinux_persistence_title">Persist across reboots</string>
+    <string name="selinux_persistence_summary">Restore the above set sepolicy mode on each boot</string>
+    <string name="selinux_permissive_toast_title">Selinux set to permissive!</string>
+    <string name="selinux_enforcing_toast_title">Selinux set to enforcing!</string>
+    <string name="cannot_get_su">Action failed because of missing superuser access</string>    
+
+    <!-- Charging -->
+    <string name="smart_charging_main_title">Battery</string>
+    <string name="smart_charging_title">Smart Charging</string>
+    <string name="smart_charging_summary">Helps in protecting from over charging the device</string>
+    <string name="reset_stats_title">Reset battery stats</string>
+    <string name="reset_stats_summary">Battery stats will get reset when charging limit is reached</string>
+    <string name="smart_charging_status_notif">Smart Charging is running</string>
+    <string name="smart_charging_stoppped_notif">Charging limit is reached, stopped charging</string>
+
+    </resources>

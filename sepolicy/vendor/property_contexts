@@ -43,3 +43,58 @@ persist.sys.thermal.       u:object_r:thermal_engine_prop:s0
 # Dolby
 persist.vendor.dolby.loglevel                 u:object_r:vendor_dolby_loglevel_prop:s0
 
+# Poco Pref
+baikal.therm.profile                       u:object_r:thermal_prop:s0
+baikal.eng.therm.profile                       u:object_r:cputhermal_prop:s0
+baikal.eng.perf.profile                  u:object_r:cpuperf_prop:s0
+baikal.perf.profile                  u:object_r:perf_prop:s0
+baikal.eng.perf.scr_off                  u:object_r:perf_prop:s0
+persist.baikal.perf.scr_off                  u:object_r:perf_prop:s0
+persist.baikal.perf.idle                  u:object_r:perf_prop:s0
+persist.baikal.therm.default                         u:object_r:defaultthermal_prop:s0
+persist.baikal.perf.default                           u:object_r:defaultperf_prop:s0
+persist.nvt_fw                           u:object_r:nvt_prop:s0
+persist.nvt_esd                           u:object_r:esd_prop:s0
+persist.baikal.dolby.enable                           u:object_r:dolby_prop:s0
+persist.cpu.thermal.profile                    u:object_r:cputhermal_prop:s0
+persist.cpu.performance.profile                    u:object_r:cpuperf_prop:s0
+restart.perf.service                           u:object_r:perfservice_prop:s0
+vendor.fps.boost                           u:object_r:perfservice_prop:s0
+
+#netmgrd
+persist.vendor.data.qmipriod_load               u:object_r:vendor_radio_prop:s0
+
+#misc
+
+ro.charger.enable_suspend               u:object_r:vendor_charge_prop:s0
+ro.audio.soundtrigger               u:object_r:vendor_soundtrigger_prop:s0
+ro.audio.soundtrigger.lowpower               u:object_r:vendor_soundtriggerlp_prop:s0
+persist.ppd.fde.config               u:object_r:vendor_fde_prop:s0
+vendor.hw.fm.init               u:object_r:vendor_fm_prop:s0
+
+
+
+
+
+
+vendor.wlan.driver.version       u:object_r:vendor_wifi_version:s0
+vendor.wlan.firmware.version     u:object_r:vendor_wifi_version:s0
+
+# Boost framework
+persist.vendor.perf.bgt.enable             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.perf.topAppRenderThreadBoost.enable             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.qti.sys.fw.trim_enable_memory             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.qti.sys.fw.trim_cache_percent             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.qti.sys.fw.trim_empty_percent             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.qti.sys.fw.empty_app_percent             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.qti.sys.fw.use_trim_settings             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.qti.sys.fw.bg_apps_limit             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.qti.cgroup_follow.dex2oat_only             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.qti.cgroup_follow.enable             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.qti.sys.fw.bservice_enable             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.qti.sys.fw.bservice_limit             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.qti.sys.fw.bservice_age             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.perf.gestureflingboost.enable             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.perf.launch.boost             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.perf.animation.boost             u:object_r:vendor_boostframework_prop:s0
+persist.vendor.perf.install.boost             u:object_r:vendor_boostframework_prop:s0

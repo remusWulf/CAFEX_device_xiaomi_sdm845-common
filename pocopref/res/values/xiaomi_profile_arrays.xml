@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string-array name="xiaomi_display_listentries">
+      <item>@string/xiaomi_display_adapt_1</item>
+      <item>@string/xiaomi_display_adapt_2</item>
+      <item>@string/xiaomi_display_adapt_3</item>
+      <item>@string/xiaomi_display_enhance</item>
+      <item>@string/xiaomi_display_standard</item>      
+     </string-array>
+
+     <string-array name="xiaomi_display_listvalues">
+    	<item>1</item>
+        <item>2</item>
+        <item>3</item>
+    	<item>4</item>
+    	<item>5</item>
+    </string-array>
+</resources>
