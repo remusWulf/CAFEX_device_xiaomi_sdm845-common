@@ -49,6 +49,5 @@
     <string name="config_batCurrent" translatable="false">/sys/class/power_supply/battery/current_now</string>
 
 
-
 </resources>
 
