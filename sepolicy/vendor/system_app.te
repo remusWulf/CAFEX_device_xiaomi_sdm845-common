@@ -1,0 +1,26 @@
+set_prop(system_app, thermal_prop);
+get_prop(system_app, thermal_prop);
+set_prop(system_app, perf_prop);
+get_prop(system_app, perf_prop);
+set_prop(system_app, defaultthermal_prop);
+get_prop(system_app, defaultthermal_prop);
+set_prop(system_app, defaultperf_prop);
+get_prop(system_app, defaultperf_prop);
+set_prop(system_app, nvt_prop);
+get_prop(system_app, nvt_prop);
+set_prop(system_app, esd_prop);
+get_prop(system_app, esd_prop);
+set_prop(system_app, dolby_prop);
+get_prop(system_app, dolby_prop);
+set_prop(system_app, perfservice_prop);
+get_prop(system_app, perfservice_prop);
+set_prop(system_app, vendor_boostframework_prop);
+get_prop(system_app, vendor_boostframework_prop);
+allow system_app proc_vmallocinfo:file r_file_perms;
+allow system_app sysfs_zram:dir search;
+allow system_app sysfs_zram:file r_file_perms;
+allow system_app sysfs_battery_supply:dir search;
+allow system_app sysfs_battery_supply:file rw_file_perms;
+allow system_app sysfs_usb_supply:dir search;
+allow system_app sysfs_usb_supply:file rw_file_perms;
+
