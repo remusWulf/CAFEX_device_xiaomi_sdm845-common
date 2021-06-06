@@ -2,12 +2,28 @@ allow system_server app_zygote:process getpgid;
 allow system_server kernel:system syslog_read;
 allow system_server vendor_persist_camera_prop:file { getattr open read };
 allow system_server vendor_default_prop:file { getattr open read };
-
+allow system_server sysfs_battery_supply:file rw_file_perms;
 binder_call(system_server, glgps)
 
 get_prop(system_server, camera_prop)
 get_prop(system_server, persist_camera_prop)
 
-userdebug_or_eng(`
-allow system_server vendor_wfd_sys_debug_prop:file { getattr open read };
-')
+set_prop(system_server, defaultthermal_prop)
+get_prop(system_server, defaultthermal_prop)
+set_prop(system_server, defaultperf_prop)
+get_prop(system_server, defaultperf_prop)
+set_prop(system_server, nvt_prop)
+get_prop(system_server, nvt_prop)
+set_prop(system_server, esd_prop)
+get_prop(system_server, esd_prop)
+set_prop(system_server, dolby_prop)
+get_prop(system_server, dolby_prop)
+set_prop(system_server, perfservice_prop)
+get_prop(system_server, perfservice_prop)
+set_prop(system_server, vendor_boostframework_prop)
+get_prop(system_server, vendor_boostframework_prop)
+set_prop(system_server, thermal_prop);
+get_prop(system_server, thermal_prop);
+set_prop(system_server, perf_prop);
+get_prop(system_server, perf_prop);
+
