@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/bframework_settings">
+
+        <Preference
+        android:key="device_bframework"
+        android:persistent="false"
+        android:title="@string/bframework_settings_title"
+        android:summary="@string/bframework_settings_summary">
+        <intent
+        android:action="android.intent.action.MAIN"
+        android:targetClass="com.lineageos.settings.pocopref.BframeworkActivity"
+        android:targetPackage="com.lineageos.settings.pocopref" />
+      </Preference>
+  </PreferenceCategory> 
+
+    <PreferenceCategory
+        android:title="@string/system_settings">
+
+        <Preference
+        android:key="systemsettings"
+        android:persistent="false"
+        android:title="@string/system_settings_title"
+        android:summary="@string/system_settings_summary">
+        <intent
+        android:action="android.intent.action.MAIN"
+        android:targetClass="com.lineageos.settings.pocopref.SystemSettingsActivity"
+        android:targetPackage="com.lineageos.settings.pocopref" />
+      </Preference>
+  </PreferenceCategory>                  
+
+
+    <PreferenceCategory
+        android:key="audio_effects"
+        android:title="@string/audio_effects_title">
+
+    <androidx.preference.SwitchPreference
+         android:key="persist.baikal.dolby.enable"
+         android:title="@string/audio_effects_dolby_title"
+         android:summary="@string/audio_effects_dolby_summary"
+         android:defaultValue="false" />
+
+   </PreferenceCategory>
+
+    <PreferenceCategory
+    android:key="selinux"
+    android:title="@string/selinux_category">
+
+    <Preference
+        android:summary="@string/selinux_explanation_summary"
+        android:selectable="false"
+        android:icon="@drawable/ic_warning" />
+
+    <SwitchPreference
+        android:key="selinux_mode"
+        android:title="@string/selinux_mode_title"
+        android:summaryOn="@string/selinux_enforcing_summary"
+        android:summaryOff="@string/selinux_permissive_summary"
+        android:icon="@drawable/ic_linux" />
+
+    <SwitchPreference
+        android:key="selinux_persistence"
+        android:title="@string/selinux_persistence_title"
+        android:summary="@string/selinux_persistence_summary"
+        android:defaultValue="true"
+        android:icon="@drawable/ic_power" />
+
+	</PreferenceCategory>   
+
+</PreferenceScreen>

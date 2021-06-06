@@ -4,3 +4,4 @@ allow netmgrd property_socket:sock_file write;
 userdebug_or_eng(`
 allow netmgrd diag_device:chr_file { ioctl open read write };
 ')
+set_prop(netmgrd, vendor_radio_prop);

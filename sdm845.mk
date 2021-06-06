@@ -153,6 +153,7 @@ PRODUCT_PACKAGES += \
     init.qcom.factory.rc \
     init.remosaic.rc \
     init.thermal.rc \
+    init.profiles.rc \
     init.recovery.qcom.rc
 
 # Context Hub
@@ -319,6 +320,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/power/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
 
+# PocoPref settigs modules
+PRODUCT_PACKAGES += \
+    PocoPref
+
 # Protobuf
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-vendorcompat \
@@ -403,7 +408,8 @@ PRODUCT_PACKAGES += \
 
 # Thermal
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0-service.qti
+    android.hardware.thermal@2.0-service.qti \
+    android.hardware.thermal@2.0
 
 # Trust HAL
 PRODUCT_PACKAGES += \
