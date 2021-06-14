@@ -80,13 +80,6 @@
             android:summary="@string/powersave_gms_blocked_summary"
             android:defaultValue="false"
             android:disableDependentsState="true" />
-                
-    <com.lineageos.settings.pocopref.GlobalSettingSwitchPreference
-        android:key="baikalos_hide_gms"
-        android:title="@string/powersave_hide_idle_title"
-        android:summary="@string/powersave_hide_idle_summary"
-        android:defaultValue="false"
-        android:disableDependentsState="true" />
 
     <com.lineageos.settings.pocopref.GlobalSettingSwitchPreference
         android:key="baikalos_unrestricted_net"

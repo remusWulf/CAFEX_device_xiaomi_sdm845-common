@@ -114,6 +114,9 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.bluetooth_audio@2.0.vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor
 
+include vendor/qcom/opensource/commonsys-intf/bluetooth/bt-commonsys-intf-board.mk
+$(call inherit-product, vendor/qcom/opensource/commonsys-intf/bluetooth/bt-system-opensource-product.mk)
+
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl:32 \
@@ -250,7 +253,8 @@ PRODUCT_PACKAGES += \
 
 # HotwordEnrollement app permissions
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/permissions/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml
+    $(LOCAL_PATH)/permissions/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml \
+    $(LOCAL_PATH)/permissions/privapp-permissions-asus.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-asus.xml
 
 # IFAA manager
 PRODUCT_PACKAGES += \
@@ -322,7 +326,8 @@ PRODUCT_COPY_FILES += \
 
 # PocoPref settigs modules
 PRODUCT_PACKAGES += \
-    PocoPref
+    PocoPref \
+    DeviceParts
 
 # Protobuf
 PRODUCT_PACKAGES += \
@@ -339,6 +344,7 @@ PRODUCT_PACKAGES += \
     libqti_vndfwk_detect.vendor
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/ims-hiddenapi-package-whitelist.xml:system/etc/sysconfig/ims-hiddenapi-package-whitelist.xml \
     $(LOCAL_PATH)/configs/qti_whitelist.xml:system/etc/sysconfig/qti_whitelist.xml \
     $(LOCAL_PATH)/permissions/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-qti.xml
 
@@ -455,7 +461,7 @@ PRODUCT_PACKAGES += \
     libdisplayconfig \
     libdisplayconfig.vendor \
     libnl \
-    libwfdaac_vendor
+    libwfdaac_vendor \
     libqdMetaData \
     libqdMetaData.system \
     libminijail \
@@ -463,3 +469,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     WfdCommon
+
+#$(call inherit-product, vendor/miuicamera/config.mk)
+#$(call inherit-product, vendor/asus/rog2/rog2-vendor.mk)

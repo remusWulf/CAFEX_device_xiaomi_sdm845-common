@@ -170,4 +170,7 @@
     <string name="smart_charging_status_notif">Smart Charging is running</string>
     <string name="smart_charging_stoppped_notif">Charging limit is reached, stopped charging</string>
 
+    <string name="gaming_title">Game Genie</string>
+    <string name="gaming_browse_summary">Lunch game genie settings</string>
+    
     </resources>
