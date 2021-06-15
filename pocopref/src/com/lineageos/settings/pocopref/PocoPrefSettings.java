@@ -65,7 +65,6 @@ public class PocoPrefSettings extends PreferenceFragment implements
     private static final String PREF_SELINUX_PERSISTENCE = "selinux_persistence";
     public static final String PREF_CHARGING_SWITCH = "smart_charging";
     public static final String PREF_RESET_STATS = "reset_stats";
-    public static final String KEY_GAME_GENIE = "game_toolbar_app";    
 
     public static final String SMART_CHARGING_PATH = "/sys/class/power_supply/battery/input_suspend";    
     
@@ -80,7 +79,6 @@ public class PocoPrefSettings extends PreferenceFragment implements
     private SwitchPreference mSelinuxPersistence;    
     private SharedPreferences mPrefs; 
     private SwitchPreference mSmartChargingSwitch;
-    private Preference mGameGenie;        
     private SwitchPreference mResetStats;
 
     private CustomSeekBarPreference mSeekBarPreference;
@@ -139,9 +137,6 @@ public class PocoPrefSettings extends PreferenceFragment implements
             mDolby = (SwitchPreference) findPreference(SYSTEM_PROPERTY_DOLBY);
             mDolby.setChecked(SystemProperties.getBoolean(SYSTEM_PROPERTY_DOLBY, false));
             mDolby.setOnPreferenceChangeListener(this);
-            
-        mGameGenie = findPreference(KEY_GAME_GENIE);
-        mGameGenie.setEnabled(GameGenie.isGameGenieExist(this.getContext()));            
 
      }
 
