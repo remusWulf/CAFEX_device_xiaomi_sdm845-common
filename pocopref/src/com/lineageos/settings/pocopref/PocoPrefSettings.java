@@ -30,7 +30,8 @@ import com.lineageos.settings.pocopref.SuShell;
 import com.lineageos.settings.pocopref.SuTask;
 import com.lineageos.settings.pocopref.CustomSeekBarPreference;
 import com.lineageos.settings.pocopref.Utils;
-import com.lineageos.settings.pocopref.FileUtils;
+import android.os.FileUtils;
+import com.lineageos.settings.pocopref.VibratorStrengthPreference;
 import android.provider.Settings;
 import android.view.Menu;
 import android.os.UserHandle;
@@ -40,7 +41,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Date;
-
+import android.util.Slog;
 import android.util.Log;
 import android.os.SystemProperties;
 import java.io.*;
@@ -63,8 +64,12 @@ public class PocoPrefSettings extends PreferenceFragment implements
     private static final String PREF_SELINUX_PERSISTENCE = "selinux_persistence";
     public static final String PREF_CHARGING_SWITCH = "smart_charging";
     public static final String PREF_RESET_STATS = "reset_stats";
-
+    public static final String KEY_VIBSTRENGTH = "vib_strength";
+    public static final String KEY_WAVEFORM = "vib_waveform";
+    public static final String DEFAULT_KEY_WAVEFORM = "3e 3e 3e 3e be be a0 90";        
     public static final String SMART_CHARGING_PATH = "/sys/class/power_supply/battery/input_suspend";    
+
+    public static final String KEY_WAVEFORM_PATH = "/sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-03/c440000.qcom,spmi:qcom,pmi8998@3:qcom,haptics@c000/leds/vibrator/effect_samp";    
     
     private Context mContext;
     private Preference mSystemSettings;
@@ -77,9 +82,11 @@ public class PocoPrefSettings extends PreferenceFragment implements
     private SwitchPreference mSelinuxPersistence;    
     private SharedPreferences mPrefs; 
     private SwitchPreference mSmartChargingSwitch;
-        
+    private VibratorStrengthPreference mVibratorStrength;
+    private SecureSettingListPreference mWaveForm;    
+            
     private SwitchPreference mResetStats;
-
+    private String mWaveFormValue;
     private CustomSeekBarPreference mSeekBarPreference;
     
     @Override
@@ -110,15 +117,10 @@ public class PocoPrefSettings extends PreferenceFragment implements
             return true;
         });	        	
 
-           //  mSmartChargingSwitch = (SwitchPreference) findPreference(PREF_CHARGING_SWITCH);
-         //    mSmartChargingSwitch.setChecked(Settings.System.getInt(resolver,
-           //  Settings.System.SMART_CHARGING, 0) == 1);
-            // mSmartChargingSwitch.setOnPreferenceChangeListener(this);           
-        
-          //   mSeekBarPreference = (CustomSeekBarPreference) findPreference(SEEK_BAR);
-          //   mSeekBarPreference.setValue(mPrefs.getInt(SEEK_BAR, mSeekBarPreference.getValue()));
-          //  mSeekBarPreference.setOnPreferenceChangeListener(this);
-                
+        mVibratorStrength = (VibratorStrengthPreference) findPreference(KEY_VIBSTRENGTH);
+        if (mVibratorStrength != null) {
+            mVibratorStrength.setEnabled(VibratorStrengthPreference.isSupported());
+        }
  
          // SELinux
         Preference selinuxCategory = findPreference(SELINUX_CATEGORY);
@@ -133,12 +135,27 @@ public class PocoPrefSettings extends PreferenceFragment implements
         .getSharedPreferences("selinux_pref", Context.MODE_PRIVATE)
         .contains(PREF_SELINUX_MODE));
                    
-            mDolby = (SwitchPreference) findPreference(SYSTEM_PROPERTY_DOLBY);
-            mDolby.setChecked(SystemProperties.getBoolean(SYSTEM_PROPERTY_DOLBY, false));
-            mDolby.setOnPreferenceChangeListener(this);
+        mDolby = (SwitchPreference) findPreference(SYSTEM_PROPERTY_DOLBY);
+        mDolby.setChecked(SystemProperties.getBoolean(SYSTEM_PROPERTY_DOLBY, false));
+        mDolby.setOnPreferenceChangeListener(this);
+		
+        mWaveFormValue = mPrefs.getString(KEY_WAVEFORM, DEFAULT_KEY_WAVEFORM);  
+        mWaveForm = (SecureSettingListPreference) findPreference(KEY_WAVEFORM);
+        mWaveForm.setValue(mWaveFormValue);
+        mWaveForm.setOnPreferenceChangeListener(this);       
 
      }
 
+    public static void restore(Context context) {
+       String profile = PreferenceManager
+              .getDefaultSharedPreferences(context).getString(PocoPrefSettings.KEY_WAVEFORM, DEFAULT_KEY_WAVEFORM);
+             try {
+            FileUtils.stringToFile(KEY_WAVEFORM_PATH, profile);
+            } catch (IOException e) {
+            Slog.e(TAG, "Error writing ", e);
+            }                          
+     }
+                    
     private void setSystemPropertyBoolean(String key, boolean value) {
     	if(value) {
  	      SystemProperties.set(key, "true");
@@ -170,18 +187,16 @@ public class PocoPrefSettings extends PreferenceFragment implements
                 setSystemPropertyBoolean(SYSTEM_PROPERTY_DOLBY, (Boolean) value);
                 break;
 
-         //    case PREF_CHARGING_SWITCH:
-          //       ((SwitchPreference)preference).setChecked((Boolean) value);
-          //          int SmartCharging = ((Boolean) value) ? 1 : 0;
-           //          Settings.System.putInt(resolver,
-           //             Settings.System.SMART_CHARGING, SmartCharging);
-           //       break;
-
-           //  case SEEK_BAR:
-            //    mPrefs.edit().putInt(SEEK_BAR, (int) value).apply();
-             //        Settings.System.putInt(resolver,
-            //            Settings.System.SMART_CHARGING_LEVEL, (int) value);
-             //     break;
+            case KEY_WAVEFORM:
+            mWaveFormValue = value.toString();
+            mPrefs.edit().putString(KEY_WAVEFORM, mWaveFormValue).commit();            
+            try {
+            FileUtils.stringToFile(KEY_WAVEFORM_PATH, mWaveFormValue);
+            } catch (IOException e) {
+            Slog.e(TAG, "Error writing ", e);
+            }
+                break;
+				
             default:
                 break;
         }

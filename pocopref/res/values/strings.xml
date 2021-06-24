@@ -170,4 +170,23 @@
     <string name="smart_charging_status_notif">Smart Charging is running</string>
     <string name="smart_charging_stoppped_notif">Charging limit is reached, stopped charging</string>
 
-    </resources>
+    <!-- Vibration strength -->
+    <string name="vibration_title">Vibration Strength</string>
+    <string name="system_strength_title">Call and Notification</string>
+
+     <string name="vib_waveform_title">Vibration Wave Patterns</string>    
+     <string name="vib_waveform_1">default</string>
+     <string name="vib_waveform_2">1e 1e 0 0 0 0 0 0</string>
+     <string name="vib_waveform_3">1e 1e 1e 0 0 0 0 0</string>
+     <string name="vib_waveform_4">1e 1e 1e 1e 0 0 0 0</string>
+     <string name="vib_waveform_5">1e 1e 1e 1e 1e 0 0 0</string>
+     <string name="vib_waveform_6">3e 3e 0 0 0 0 0 0</string>
+     <string name="vib_waveform_7">3e 3e 3e 0 0 0 0 0</string> 
+     <string name="vib_waveform_8">3e 3e 3e 3e  0 0 0 0</string>
+     <string name="vib_waveform_9">3e 3e 3e 3e  3e 0 0 0</string>     
+     <string name="vib_waveform_10">7e 7e 0 0 0 0 0 0</string>
+     <string name="vib_waveform_11">7e 7e 7e 0 0 0 0 0</string>     
+     <string name="vib_waveform_12">7e 7e 7e 7e 0 0 0 0</string>
+     <string name="vib_waveform_13">7e 7e 7e 7e 7e 0 0 0</string>                               
+
+</resources>

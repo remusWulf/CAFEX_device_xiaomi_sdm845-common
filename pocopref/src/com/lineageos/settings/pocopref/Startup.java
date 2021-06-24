@@ -23,6 +23,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import com.lineageos.settings.pocopref.Utils;
 import androidx.preference.PreferenceManager;
+import com.lineageos.settings.pocopref.VibratorStrengthPreference;
+import com.lineageos.settings.pocopref.PocoPrefSettings;
 
 public class Startup extends BroadcastReceiver {
 
@@ -43,6 +45,8 @@ public class Startup extends BroadcastReceiver {
     }
         @Override
     public void onReceive(final Context context, final Intent bootintent) {
-
+        // System
+        VibratorStrengthPreference.restore(context);
+        PocoPrefSettings.restore(context);
     }
 }

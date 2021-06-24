@@ -65,6 +65,14 @@ public final class Utils {
         return defValue;
     }
 
+    public static String getFileValue(String filename, String defValue) {
+        String fileValue = readLine(filename);
+        if(fileValue!=null){
+            return fileValue;
+        }
+        return defValue;
+    }
+    
     public static boolean fileWritable(String filename) {
         return fileExists(filename) && new File(filename).canWrite();
     }

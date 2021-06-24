@@ -2,6 +2,26 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
+        android:key="vibration"
+        android:title="@string/vibration_title">
+
+        <com.lineageos.settings.pocopref.VibratorStrengthPreference
+            android:defaultValue="80"
+            android:key="vibration_strength"
+            android:icon="@drawable/ic_vibrate"
+            android:title="@string/system_strength_title" />
+
+    <com.lineageos.settings.pocopref.SecureSettingListPreference
+        android:key="vib_waveform"
+        android:title="@string/vib_waveform_title"
+        android:entries="@array/vib_waveform_listentries"
+        android:entryValues="@array/vib_waveform_listvalues"
+        android:defaultValue="1"
+        android:summary="%s" />
+        
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/bframework_settings">
 
         <Preference

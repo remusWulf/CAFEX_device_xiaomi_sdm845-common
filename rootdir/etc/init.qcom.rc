@@ -145,6 +145,15 @@ on boot
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
+   # Vibrator permissions
+    chown system system /sys/class/leds/vibrator/vmax_mv
+    chown system system /sys/class/leds/vibrator/effect_samp    
+
+
+    chmod 0660 /sys/class/leds/vibrator/vmax_mv
+    chmod 0660 /sys/class/leds/vibrator/effect_samp    
+
+        
     chmod 0660 /dev/ttyHS2
     chown bluetooth bluetooth /dev/ttyHS2
 

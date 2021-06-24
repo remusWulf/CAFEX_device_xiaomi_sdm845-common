@@ -97,4 +97,35 @@
         <item>245 245 256 125 127 127 0</item>
         <item>245 240 256 125 127 127 0</item>
     </array>    
+    <string-array name="vib_waveform_listentries">
+      <item>@string/vib_waveform_1</item>
+      <item>@string/vib_waveform_2</item>
+      <item>@string/vib_waveform_3</item>
+      <item>@string/vib_waveform_4</item>
+      <item>@string/vib_waveform_5</item>
+      <item>@string/vib_waveform_6</item>
+      <item>@string/vib_waveform_7</item>
+      <item>@string/vib_waveform_8</item>
+      <item>@string/vib_waveform_9</item>
+      <item>@string/vib_waveform_10</item>
+      <item>@string/vib_waveform_11</item>
+      <item>@string/vib_waveform_12</item>
+      <item>@string/vib_waveform_13</item>
+     </string-array>
+
+     <string-array name="vib_waveform_listvalues">
+    	<item>3e 3e 3e 3e be be a0 90</item>
+      <item>1e 1e 0 0 0 0 0 0</item>
+      <item>1e 1e 1e 0 0 0 0 0</item>      
+      <item>1e 1e 1e 1e 0 0 0 0</item>
+      <item>1e 1e 1e 1e 1e 0 0 0</item>      
+    	<item>3e 3e 0 0 0 0 0 0</item>
+    	<item>3e 3e 3e 0 0 0 0 0</item>     
+    	<item>3e 3e 3e 3e  0 0 0 0</item>
+    	<item>3e 3e 3e 3e 3e 0 0 0</item>     
+    	<item>7e 7e 0 0 0 0 0 0</item>
+    	<item>7e 7e 7e 0 0 0 0 0</item>     
+    	<item>7e 7e 7e 7e 0 0 0 0</item>
+    	<item>7e 7e 7e 7e 7e 0 0 0</item>                 
+    </string-array>    
 </resources>
