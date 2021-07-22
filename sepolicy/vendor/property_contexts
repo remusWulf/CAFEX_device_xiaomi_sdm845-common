@@ -64,6 +64,7 @@ persist.baikal.dolby.enable                           u:object_r:dolby_prop:s0
 persist.cpu.thermal.profile                    u:object_r:cputhermal_prop:s0
 persist.cpu.performance.profile                    u:object_r:cpuperf_prop:s0
 restart.perf.service                           u:object_r:perfservice_prop:s0
+vendor.fps.boost                           u:object_r:perfservice_prop:s0
 
 #netmgrd
 persist.vendor.data.qmipriod_load               u:object_r:vendor_radio_prop:s0
@@ -77,12 +78,6 @@ persist.ppd.fde.config               u:object_r:vendor_fde_prop:s0
 vendor.hw.fm.init               u:object_r:vendor_fm_prop:s0
 
 
-
-
-
-
-vendor.wlan.driver.version       u:object_r:vendor_wifi_version:s0
-vendor.wlan.firmware.version     u:object_r:vendor_wifi_version:s0
 
 # Boost framework
 persist.vendor.perf.bgt.enable             u:object_r:vendor_boostframework_prop:s0
@@ -102,3 +97,4 @@ persist.vendor.perf.gestureflingboost.enable             u:object_r:vendor_boost
 persist.vendor.perf.launch.boost             u:object_r:vendor_boostframework_prop:s0
 persist.vendor.perf.animation.boost             u:object_r:vendor_boostframework_prop:s0
 persist.vendor.perf.install.boost             u:object_r:vendor_boostframework_prop:s0
+

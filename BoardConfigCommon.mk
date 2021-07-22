@@ -44,7 +44,6 @@ BOARD_RAMDISK_OFFSET := 0x01000000
 TARGET_KERNEL_ARCH := arm64
 ifeq ($(TARGET_PREBUILT_KERNEL),)
   TARGET_KERNEL_CLANG_COMPILE := true
-  TARGET_KERNEL_CLANG_PATH := $(PWD)/vendor/qcom/sdclang
   TARGET_KERNEL_SOURCE := kernel/xiaomi/sdm845
 endif
 
@@ -188,3 +187,7 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Inherit from the proprietary version
 -include vendor/xiaomi/sdm845-common/BoardConfigVendor.mk
+
+USE_PIXEL_CHARGER_IMAGES := true
+
+

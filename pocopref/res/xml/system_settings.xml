@@ -39,7 +39,7 @@
     	    android:title="@string/scr_off_profile_title"
     	    android:entries="@array/default_performance_listentries"
     	    android:entryValues="@array/default_performance_listvalues" 
-            android:defaultValue="balance"
+            android:defaultValue="battery"
             android:summary="%s"/>
 
         <com.lineageos.settings.pocopref.SecureSettingListPreference
@@ -47,7 +47,7 @@
     	    android:title="@string/idle_profile_title"
     	    android:entries="@array/default_performance_listentries"
     	    android:entryValues="@array/default_performance_listvalues" 
-          android:defaultValue="balance"
+          android:defaultValue="battery"
           android:summary="%s"/>           
 
     </PreferenceCategory>
@@ -74,6 +74,13 @@
         android:defaultValue="false"
         android:disableDependentsState="true" />
 
+    <com.lineageos.settings.pocopref.GlobalSettingSwitchPreference
+            android:key="baikalos_gms_blocked"
+            android:title="@string/powersave_gms_blocked_title"
+            android:summary="@string/powersave_gms_blocked_summary"
+            android:defaultValue="false"
+            android:disableDependentsState="true" />
+                
     <com.lineageos.settings.pocopref.GlobalSettingSwitchPreference
         android:key="baikalos_hide_gms"
         android:title="@string/powersave_hide_idle_title"

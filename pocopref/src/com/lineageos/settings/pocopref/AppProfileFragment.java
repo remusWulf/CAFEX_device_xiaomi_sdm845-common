@@ -33,10 +33,13 @@ import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.SwitchPreference;
 import android.provider.Settings;
 import android.view.View;
+import com.android.internal.baikalos.PowerWhitelistBackend;
 import android.util.Log;
 
 import android.os.ServiceManager;
 import android.os.RemoteException;
+
+import java.io.File;
 
 
 import android.content.res.Resources;
@@ -58,10 +61,13 @@ public class AppProfileFragment extends BaseSettingsFragment
     private static final String APP_PROFILE_BRIGHTNESS = "app_profile_brightness";
     private static final String APP_PROFILE_FPS = "app_profile_fps";
     private static final String APP_PROFILE_STAMINA = "app_profile_stamina";
-    private static final String APP_PROFILE_RESTRICTED = "app_profile_restricted";
-    private static final String APP_PROFILE_RESTRICTED_IDLE = "app_profile_restricted_idle";        
+    private static final String APP_PROFILE_REQUIRE_GMS = "app_profile_require_gms";
+//    private static final String APP_PROFILE_RESTRICTED = "app_profile_restricted";
+    private static final String APP_PROFILE_BACKGROUND = "app_profile_background";
 //    private static final String APP_PROFILE_CAMERA_HAL1 = "app_profile_camera_hal1";
     private static final String APP_PROFILE_PINNED = "app_profile_pinned";
+    private static final String APP_PROFILE_SPOOF = "app_profile_spoof";    
+    private static final String APP_PROFILE_KEEP_ON = "app_profile_keep_on";    
 //    private static final String APP_PROFILE_DISABLE_TWL = "app_profile_disable_twl";
 
     private String mPackageName;
@@ -74,12 +80,12 @@ public class AppProfileFragment extends BaseSettingsFragment
     private ListPreference mAppBrightnessProfile;
     private ListPreference mAppFpsProfile;
     private SwitchPreference mAppStamina;
-    private SwitchPreference mAppRestricted;
-    private SwitchPreference mAppRestrictedIdle;        
-
+    private SwitchPreference mAppRequireGms;    
+    private ListPreference mAppBackgroundProfile;
     private AppProfileSettings mAppSettings;
     private com.android.internal.baikalos.AppProfile mProfile;
-
+    private SwitchPreference mAppKeepOn;
+    
 
     //IBaikalServiceController mBaikalService;
 
@@ -106,7 +112,7 @@ public class AppProfileFragment extends BaseSettingsFragment
         boolean thermProf  = SystemProperties.get("baikal.eng.therm", "0").equals("1");
 
 
-        mAppSettings = new  AppProfileSettings(new Handler(),mContext, mContext.getContentResolver(),null);
+        mAppSettings =  AppProfileSettings.getInstance(new Handler(),mContext, mContext.getContentResolver(),null);
         mProfile = mAppSettings.getProfile(mPackageName);
         if( mProfile == null ) { 
             mProfile = new com.android.internal.baikalos.AppProfile();
@@ -279,49 +285,107 @@ public class AppProfileFragment extends BaseSettingsFragment
                 });
             }
 
-            mAppRestricted = (SwitchPreference) findPreference(APP_PROFILE_RESTRICTED);
-            if( mAppRestricted != null ) {
-                mAppRestricted.setChecked(mProfile.mRestricted);
-                //mAppRestricted.setChecked(mBaikalService.isAppRestrictedProfile(mPackageName));
-                mAppRestricted.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        //int val = Integer.parseInt(newValue.toString());
-                        //DiracAudioEnhancerService.du.setHeadsetType(mContext, val);
+            PowerWhitelistBackend mBackend = PowerWhitelistBackend.getInstance(getContext());
+            mAppBackgroundProfile = (ListPreference) findPreference(APP_PROFILE_BACKGROUND);
+            if( mAppBackgroundProfile != null ) {
+                if( mBackend.isSysWhitelisted(mPackageName) ) {
+                    mAppBackgroundProfile.setValue("-1");
+                    mAppBackgroundProfile.setEnabled(false);
+                    if( mProfile.mBackground != -1 ) {
+                        mProfile.mBackground = -1;
+                        mAppSettings.updateProfile(mProfile);
+                        mAppSettings.save();
+                } else {
+                    int background = mProfile.mBackground;
+                    Log.e(TAG, "getAppBackground: mPackageName=" + mPackageName + ",background=" + background);
+                    mAppBackgroundProfile.setValue(Integer.toString(background));
+                    mAppBackgroundProfile.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                      public boolean onPreferenceChange(Preference preference, Object newValue) {
                         try {
-                            mProfile.mRestricted = ((Boolean)newValue);
+                            int val = Integer.parseInt(newValue.toString());
+                            mProfile.mBackground = val;
                             mAppSettings.updateProfile(mProfile);
                             mAppSettings.save();
-                            //mBaikalService.setAppPriority(mPackageName, ((Boolean)newValue) ? -1 : 0 );
-                            Log.e(TAG, "mAppRestricted: mPackageName=" + mPackageName + ",mRestricted=" + (Boolean)newValue);
+
+                            //mBaikalService.setAppBrightness(mPackageName, val );
+                            Log.e(TAG, "setAppBackground: mPackageName=" + mPackageName + ",background=" + val);
                         } catch(Exception re) {
-                            Log.e(TAG, "onCreate: mAppRestricted Fatal! exception", re );
+                            Log.e(TAG, "onCreate: setAppBackground Fatal! exception", re );
                         }
                         return true;
-                    }
-                });
+                      }
+                    });
+                }
             }
 
-            mAppRestrictedIdle = (SwitchPreference) findPreference(APP_PROFILE_RESTRICTED_IDLE);
-            if( mAppRestrictedIdle != null ) {
-                mAppRestrictedIdle.setChecked(mProfile.mRestrictedIdle );
+
+            mAppRequireGms = (SwitchPreference) findPreference(APP_PROFILE_REQUIRE_GMS);
+            if( mAppRequireGms != null ) {
+                boolean requireGms = mProfile.mRequireGms;
+                Log.e(TAG, "mAppRequireGms: mPackageName=" + mPackageName + ",requireGms=" + requireGms);
+                mAppRequireGms.setChecked(mProfile.mRequireGms);
+                mAppRequireGms.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                  public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    try {
+                        mProfile.mRequireGms = ((Boolean)newValue);
+                        mAppSettings.updateProfile(mProfile);
+                        mAppSettings.save();
+
+                        //mBaikalService.setAppBrightness(mPackageName, val );
+                        Log.e(TAG, "mAppRequireGms: mPackageName=" + mPackageName + ",requireGms=" + mProfile.mRequireGms);
+                    } catch(Exception re) {
+                        Log.e(TAG, "onCreate: mAppRequireGms Fatal! exception", re );
+                    }
+                    return true;
+                  }
+                });
+            }
+           
+            mAppSpoofProfile = (ListPreference) findPreference(APP_PROFILE_SPOOF);
+            if( mAppSpoofProfile != null ) {
+                    int spoof = mProfile.mSpoofDevice;
+                    Log.e(TAG, "setAppSpoof: mPackageName=" + mPackageName + ",spoof=" + spoof);
+                    mAppSpoofProfile.setValue(Integer.toString(spoof));
+                    mAppSpoofProfile.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                      public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        try {
+                            int val = Integer.parseInt(newValue.toString());
+                            mProfile.mSpoofDevice = val;
+                            mAppSettings.updateProfile(mProfile);
+                            mAppSettings.save();
+
+                            //mBaikalService.setAppBrightness(mPackageName, val );
+                            Log.e(TAG, "setAppSpoof: mPackageName=" + mPackageName + ",spoof=" + val);
+                        } catch(Exception re) {
+                            Log.e(TAG, "onCreate: setAppSpoof Fatal! exception", re );
+                        }
+                        return true;
+                      }
+                    });
+            }
+            
+            mAppKeepOn = (SwitchPreference) findPreference(APP_PROFILE_KEEP_ON);
+            if( mAppKeepOn != null ) {
+                mAppKeepOn.setChecked(mProfile.mKeepOn);
                 //mAppRestricted.setChecked(mBaikalService.isAppRestrictedProfile(mPackageName));
-                mAppRestrictedIdle.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                mAppKeepOn.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         //int val = Integer.parseInt(newValue.toString());
                         //DiracAudioEnhancerService.du.setHeadsetType(mContext, val);
                         try {
-                            mProfile.mRestrictedIdle  = ((Boolean)newValue);
+                            mProfile.mKeepOn = ((Boolean)newValue);
                             mAppSettings.updateProfile(mProfile);
                             mAppSettings.save();
                             //mBaikalService.setAppPriority(mPackageName, ((Boolean)newValue) ? -1 : 0 );
-                            Log.e(TAG, "mAppRestrictedIdle : mPackageName=" + mPackageName + ",mRestrictedIdle =" + (Boolean)newValue);
+                            Log.e(TAG, "mAppKeepOn: mPackageName=" + mPackageName + ",mKeepOn=" + (Boolean)newValue);
                         } catch(Exception re) {
-                            Log.e(TAG, "onCreate: mRestrictedIdle  Fatal! exception", re );
+                            Log.e(TAG, "onCreate: mAppKeepOn Fatal! exception", re );
                         }
                         return true;
                     }
                 });
             }
+                        
         } catch(Exception re) {
             Log.e(TAG, "onCreate: Fatal! exception", re );
         }
