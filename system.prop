@@ -68,7 +68,8 @@ persist.vendor.ims.disableUserAgent=0
 
 # Media
 debug.stagefright.omx_default_rank=0
-media.settings.xml=/vendor/etc/media_profiles_vendor.xml
+debug.media.codec2=2
+debug.stagefright.omx_default_rank=512
 
 # Memory optimizations
 ro.vendor.qti.sys.fw.bservice_enable=true
