@@ -73,15 +73,6 @@ ro.audio.soundtrigger               u:object_r:vendor_soundtrigger_prop:s0
 ro.audio.soundtrigger.lowpower               u:object_r:vendor_soundtriggerlp_prop:s0
 persist.ppd.fde.config               u:object_r:vendor_fde_prop:s0
 vendor.hw.fm.init               u:object_r:vendor_fm_prop:s0
-
-
-
-
-
-
-vendor.wlan.driver.version       u:object_r:vendor_wifi_version:s0
-vendor.wlan.firmware.version     u:object_r:vendor_wifi_version:s0
-
 # Boost framework
 persist.vendor.perf.bgt.enable             u:object_r:vendor_boostframework_prop:s0
 persist.vendor.perf.topAppRenderThreadBoost.enable             u:object_r:vendor_boostframework_prop:s0
