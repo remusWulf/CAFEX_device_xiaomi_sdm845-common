@@ -198,9 +198,10 @@ PRODUCT_PACKAGES += \
     libvulkan \
     memtrack.sdm845 \
     libqdutils \
+    libgralloc.system.qti \
     libqdMetaData \
-    libqdMetaData.vendor \
-    libdisplayconfig.qti.vendor \
+    libqdMetaData.system \
+    libdisplayconfig.system.qti \
     libdisplayconfig.qti \
     vendor.display.config@1.0.vendor \
     vendor.display.config@1.1.vendor \
