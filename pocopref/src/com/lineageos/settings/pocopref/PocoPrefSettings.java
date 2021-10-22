@@ -15,19 +15,20 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SELinux;
-import android.os.Handler;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreference;
+
+import com.lineageos.settings.pocopref.kcal.KCalSettingsActivity;
+
+import com.lineageos.settings.pocopref.FileUtil;
+
+
 import androidx.preference.TwoStatePreference;
-import com.lineageos.settings.pocopref.BframeworkActivity;
 import com.lineageos.settings.pocopref.SecureSettingListPreference;
-import com.lineageos.settings.pocopref.SuShell;
-import com.lineageos.settings.pocopref.SuTask;
 import com.lineageos.settings.pocopref.CustomSeekBarPreference;
 import com.lineageos.settings.pocopref.Utils;
 import android.os.FileUtils;
@@ -53,17 +54,12 @@ public class PocoPrefSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 	private static final boolean DEBUG = false;
 	private static final String TAG = "PocoPref";
-    public static final String PREF_BFRAMEWORK = "device_bframework";	
-    public static final String CATEGORY_DISPLAY = "display";    
-    private static final String SYSTEM_PROPERTY_NVT_FW = "persist.nvt_fw";
-    private static final String SYSTEM_PROPERTY_NVT_ESD = "persist.nvt_esd";
-    private static final String SYSTEM_PROPERTY_DOLBY = "persist.baikal.dolby.enable";
-    private static final String SELINUX_CATEGORY = "selinux";
-    private static final String PREF_SELINUX_MODE = "selinux_mode";
-    private static final String SEEK_BAR = "seek_bar";    
-    private static final String PREF_SELINUX_PERSISTENCE = "selinux_persistence";
-    public static final String PREF_CHARGING_SWITCH = "smart_charging";
-    public static final String PREF_RESET_STATS = "reset_stats";
+    public static final String PREF_DEVICE_KCAL = "device_kcal";
+    public static final String CATEGORY_DISPLAY = "display";	    
+    public static final String DEFAULT_PERF_PROFILE = "default_perf_profile";
+    public static final String PERFORMANCE_SYSTEM_PROPERTY = "persist.perf.default";
+    public static final String DEFAULT_THERMAL_PROFILE = "default_therm_profile";
+    public static final String THERMAL_SYSTEM_PROPERTY = "persist.therm.default";
     public static final String KEY_VIBSTRENGTH = "vib_strength";
     public static final String KEY_WAVEFORM = "vib_waveform";
     public static final String DEFAULT_KEY_WAVEFORM = "3e 3e 3e 3e be be a0 90";        
@@ -72,20 +68,16 @@ public class PocoPrefSettings extends PreferenceFragment implements
     public static final String KEY_WAVEFORM_PATH = "/sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-03/c440000.qcom,spmi:qcom,pmi8998@3:qcom,haptics@c000/leds/vibrator/effect_samp";    
     
     private Context mContext;
-    private Preference mSystemSettings;
+    private Preference mThermPref;
+    private Preference mPerfPref;
+
     private Preference mKcal;
-    private Preference mBframework;	
-    private SwitchPreference mNvtFw;
-    private SwitchPreference mNvtESD;
-    private SwitchPreference mSelinuxMode;
-    private SwitchPreference mDolby;
-    private SwitchPreference mSelinuxPersistence;    
-    private SharedPreferences mPrefs; 
-    private SwitchPreference mSmartChargingSwitch;
+
+    private SecureSettingListPreference mDefaultPerfProfile;
+    private SecureSettingListPreference mDefaultThermProfile;
     private VibratorStrengthPreference mVibratorStrength;
     private SecureSettingListPreference mWaveForm;    
-            
-    private SwitchPreference mResetStats;
+    private SharedPreferences prefs; 
     private String mWaveFormValue;
     private CustomSeekBarPreference mSeekBarPreference;
     
@@ -93,53 +85,54 @@ public class PocoPrefSettings extends PreferenceFragment implements
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.poco_settings, rootKey);	
         mContext = this.getContext();
-         mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        ContentResolver resolver = getActivity().getContentResolver();        
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         PreferenceCategory displayCategory = (PreferenceCategory) findPreference(CATEGORY_DISPLAY);
 
-        mSystemSettings = findPreference("systemsettings");
-                mSystemSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        mKcal = findPreference(PREF_DEVICE_KCAL);
+
+        mKcal.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(getActivity().getApplicationContext(), KCalSettingsActivity.class);
+            startActivity(intent);
+            return true;
+        });
+             mThermPref = findPreference("therm_display");
+                mThermPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                      @Override
                      public boolean onPreferenceClick(Preference preference) {
-                         Intent intent = new Intent(getActivity().getApplicationContext(), SystemSettingsActivity.class);
+                         Intent intent = new Intent(getContext(), ThermalActivity.class);
+                         startActivity(intent);
+                         return true;
+                     }
+                });
+             mPerfPref = findPreference("perf_display");
+                mPerfPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                     @Override
+                     public boolean onPreferenceClick(Preference preference) {
+                         Intent intent = new Intent(getContext(), PerformanceActivity.class);
                          startActivity(intent);
                          return true;
                      }
                 });
 
 
-        mBframework = findPreference(PREF_BFRAMEWORK);
 
-        mBframework.setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(getActivity().getApplicationContext(), BframeworkActivity.class);
-            startActivity(intent);
-            return true;
-        });	        	
+            mDefaultPerfProfile = (SecureSettingListPreference) findPreference(DEFAULT_PERF_PROFILE);
+            mDefaultPerfProfile.setValue(FileUtil.getStringProp(PERFORMANCE_SYSTEM_PROPERTY, "0"));
+            mDefaultPerfProfile.setOnPreferenceChangeListener(this);            
+
+            mDefaultThermProfile = (SecureSettingListPreference) findPreference(DEFAULT_THERMAL_PROFILE);
+            mDefaultThermProfile.setValue(FileUtil.getStringProp(THERMAL_SYSTEM_PROPERTY, "0"));
+            mDefaultThermProfile.setOnPreferenceChangeListener(this);
+	        	
 
         mVibratorStrength = (VibratorStrengthPreference) findPreference(KEY_VIBSTRENGTH);
         if (mVibratorStrength != null) {
             mVibratorStrength.setEnabled(VibratorStrengthPreference.isSupported());
         }
- 
-         // SELinux
-        Preference selinuxCategory = findPreference(SELINUX_CATEGORY);
-        mSelinuxMode = (SwitchPreference) findPreference(PREF_SELINUX_MODE);
-        mSelinuxMode.setChecked(SELinux.isSELinuxEnforced());
-        mSelinuxMode.setOnPreferenceChangeListener(this);
 
-        mSelinuxPersistence =
-        (SwitchPreference) findPreference(PREF_SELINUX_PERSISTENCE);
-        mSelinuxPersistence.setOnPreferenceChangeListener(this);
-        mSelinuxPersistence.setChecked(getContext()
-        .getSharedPreferences("selinux_pref", Context.MODE_PRIVATE)
-        .contains(PREF_SELINUX_MODE));
-                   
-        mDolby = (SwitchPreference) findPreference(SYSTEM_PROPERTY_DOLBY);
-        mDolby.setChecked(SystemProperties.getBoolean(SYSTEM_PROPERTY_DOLBY, false));
-        mDolby.setOnPreferenceChangeListener(this);
 		
-        mWaveFormValue = mPrefs.getString(KEY_WAVEFORM, DEFAULT_KEY_WAVEFORM);  
+        mWaveFormValue = prefs.getString(KEY_WAVEFORM, DEFAULT_KEY_WAVEFORM);  
         mWaveForm = (SecureSettingListPreference) findPreference(KEY_WAVEFORM);
         mWaveForm.setValue(mWaveFormValue);
         mWaveForm.setOnPreferenceChangeListener(this);       
@@ -156,46 +149,35 @@ public class PocoPrefSettings extends PreferenceFragment implements
             }                          
      }
                     
-    private void setSystemPropertyBoolean(String key, boolean value) {
-    	if(value) {
- 	      SystemProperties.set(key, "true");
-    	} else {
-    		SystemProperties.set(key, "false");
-    	}
-    }
+
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
-        ContentResolver resolver = getActivity().getContentResolver();    
+
         final String key = preference.getKey();      
         switch (key) {
 
-            case PREF_SELINUX_MODE:
-                  if (preference == mSelinuxMode) {
-                  boolean enabled = (Boolean) value;
-                  new SwitchSelinuxTask(getActivity()).execute(enabled);
-                  setSelinuxEnabled(enabled, mSelinuxPersistence.isChecked());
-                  return true;
-                } else if (preference == mSelinuxPersistence) {
-                  setSelinuxEnabled(mSelinuxMode.isChecked(), (Boolean) value);
-                  return true;
-                }
-                break;
 
-            case SYSTEM_PROPERTY_DOLBY:
-                ((SwitchPreference)preference).setChecked((Boolean) value);
-                setSystemPropertyBoolean(SYSTEM_PROPERTY_DOLBY, (Boolean) value);
-                break;
+
 
             case KEY_WAVEFORM:
             mWaveFormValue = value.toString();
-            mPrefs.edit().putString(KEY_WAVEFORM, mWaveFormValue).commit();            
+            prefs.edit().putString(KEY_WAVEFORM, mWaveFormValue).commit();            
             try {
             FileUtils.stringToFile(KEY_WAVEFORM_PATH, mWaveFormValue);
             } catch (IOException e) {
             Slog.e(TAG, "Error writing ", e);
             }
                 break;
+            case DEFAULT_PERF_PROFILE:
+                mDefaultPerfProfile.setValue((String) value);
+                FileUtil.setStringProp(PERFORMANCE_SYSTEM_PROPERTY, (String) value);
+                break;
+                
+            case DEFAULT_THERMAL_PROFILE:
+                mDefaultThermProfile.setValue((String) value);
+                FileUtil.setStringProp(THERMAL_SYSTEM_PROPERTY, (String) value);
+                break;      
 				
             default:
                 break;
@@ -203,42 +185,5 @@ public class PocoPrefSettings extends PreferenceFragment implements
         return true;
     }
 
-        private void setSelinuxEnabled(boolean status, boolean persistent) {
-          SharedPreferences.Editor editor = getContext()
-              .getSharedPreferences("selinux_pref", Context.MODE_PRIVATE).edit();
-          if (persistent) {
-            editor.putBoolean(PREF_SELINUX_MODE, status);
-          } else {
-            editor.remove(PREF_SELINUX_MODE);
-          }
-          editor.apply();
-          mSelinuxMode.setChecked(status);
-        }
-
-        private class SwitchSelinuxTask extends SuTask<Boolean> {
-          public SwitchSelinuxTask(Context context) {
-            super(context);
-          }
-          @Override
-          protected void sudoInBackground(Boolean... params) throws SuShell.SuDeniedException {
-            if (params.length != 1) {
-              Log.e(TAG, "SwitchSelinuxTask: invalid params count");
-              return;
-            }
-            if (params[0]) {
-              SuShell.runWithSuCheck("setenforce 1");
-            } else {
-              SuShell.runWithSuCheck("setenforce 0");
-            }
-          }
-
-          @Override
-          protected void onPostExecute(Boolean result) {
-            super.onPostExecute(result);
-            if (!result) {
-              // Did not work, so restore actual value
-              setSelinuxEnabled(SELinux.isSELinuxEnforced(), mSelinuxPersistence.isChecked());
-            }
-          }
-        }      
+  
 }

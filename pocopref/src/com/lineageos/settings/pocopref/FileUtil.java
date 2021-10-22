@@ -24,7 +24,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
-class FileUtils {
+class FileUtil {
 
     static boolean fileWritable(String filename) {
         return fileExists(filename) && new File(filename).canWrite();

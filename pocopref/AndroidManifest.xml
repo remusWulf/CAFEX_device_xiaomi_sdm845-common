@@ -42,48 +42,45 @@
                 android:name="com.android.settings.icon"
                 android:resource="@drawable/ic_settings_pocopref" />
         </activity>
-        <activity
-            android:name="com.lineageos.settings.pocopref.AppProfilesActivity"
-            android:exported="true"
-            android:label="@string/app_settings_title"
-            android:theme="@android:style/Theme.DeviceDefault.Settings">			
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>	
-        </activity>
-        <activity
-            android:name="com.lineageos.settings.pocopref.AppProfileActivity"
-            android:exported="true"
-            android:label="@string/app_settings_title"
+         <activity
+            android:name="com.lineageos.settings.pocopref.ThermalActivity"
+            android:label="@string/thermal_title"
             android:theme="@android:style/Theme.DeviceDefault.Settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+            </intent-filter>
         </activity>
         <activity
-            android:name="com.lineageos.settings.pocopref.SystemSettingsActivity"
+            android:name="com.lineageos.settings.pocopref.kcal.KCalSettingsActivity"
             android:exported="false"
             android:theme="@style/CustomOptionsTheme"
-            android:label="@string/system_settings">
+            android:label="@string/advanced_settings_kcal">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity> 		
+        </activity>
+        <service
+            android:name="com.lineageos.settings.pocopref.ThermalService"
+            android:permission="ThermalService">
+        </service>        
+
         <activity
-            android:name="com.lineageos.settings.pocopref.BframeworkActivity"
-            android:exported="false"
-            android:theme="@style/CustomOptionsTheme"
-            android:label="@string/bframework_settings">
-
+            android:name="com.lineageos.settings.pocopref.PerformanceActivity"
+            android:label="@string/performance_title"
+            android:theme="@android:style/Theme.DeviceDefault.Settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>        
+        </activity>
+
+        <service
+            android:name="com.lineageos.settings.pocopref.PerformanceService"
+            android:permission="PerformanceService">
+        </service>  
         <receiver android:name="com.lineageos.settings.pocopref.Startup" >
             <intent-filter android:priority="100" >
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -93,6 +90,6 @@
             <intent-filter android:priority="100" >
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>    
+        </receiver>
     </application>
 </manifest>
