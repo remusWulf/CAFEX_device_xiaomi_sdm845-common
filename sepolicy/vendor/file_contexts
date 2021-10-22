@@ -59,9 +59,6 @@
 
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power-service        u:object_r:hal_power_default_exec:s0
 
-# Dolby
-/(vendor|system/vendor)/bin/hw/vendor\.dolby\.hardware\.dms@1\.0-service                   u:object_r:hal_dms_default_exec:s0
-
 # Input nodes
 /sys/devices/platform/soc/a98000\.i2c/i2c-3/3-[0-9a-f]+(/input/input[0-9])?/wake_gesture u:object_r:sysfs_touchpanel:s0
 
@@ -71,3 +68,4 @@
 /persist(/.*)?            u:object_r:persist_file:s0
 
 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-03/c440000.qcom,spmi:qcom,pmi8998@3:qcom,haptics@c000/leds/vibrator(/.*)?           u:object_r:sysfs_vibrator:s0
+

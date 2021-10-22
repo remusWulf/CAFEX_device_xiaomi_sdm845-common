@@ -45,8 +45,6 @@ persist.sensor.sardisable  u:object_r:sensors_prop:s0
 # Thermal
 persist.sys.thermal.       u:object_r:thermal_engine_prop:s0
 
-# Dolby
-persist.vendor.dolby.loglevel                 u:object_r:vendor_dolby_loglevel_prop:s0
 
 # Poco Pref
 baikal.therm.profile                       u:object_r:thermal_prop:s0
@@ -102,3 +100,4 @@ persist.vendor.perf.gestureflingboost.enable             u:object_r:vendor_boost
 persist.vendor.perf.launch.boost             u:object_r:vendor_boostframework_prop:s0
 persist.vendor.perf.animation.boost             u:object_r:vendor_boostframework_prop:s0
 persist.vendor.perf.install.boost             u:object_r:vendor_boostframework_prop:s0
+
