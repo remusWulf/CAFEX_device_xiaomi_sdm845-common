@@ -46,19 +46,12 @@ persist.vendor.dpm.loglevel=0
 persist.vendor.dpm.nsrm.bkg.evt=3955
 
 # Graphics
-debug.sf.disable_backpressure=1
 debug.sf.enable_hwc_vds=1
-debug.sf.latch_unsignaled=1
 persist.demo.hdmirotationlock=false
 persist.sys.sf.native_mode=0
 ro.surface_flinger.force_hwc_copy_for_virtual_displays=true
 ro.surface_flinger.max_frame_buffer_acquired_buffers=2
-ro.surface_flinger.supports_background_blur=1
-ro.sf.blurs_are_expensive=1
 ro.surface_flinger.max_virtual_display_dimension=4096
-sdm.debug.disable_inline_rotator=1
-vendor.display.disable_rotator_downscale=1
-sdm.debug.disable_inline_rotator_secure=1
 
 # Zygote
 persist.device_config.runtime_native.usap_pool_enabled=true
