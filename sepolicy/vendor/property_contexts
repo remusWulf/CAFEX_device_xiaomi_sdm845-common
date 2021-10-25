@@ -47,15 +47,15 @@ persist.sys.thermal.       u:object_r:thermal_engine_prop:s0
 
 
 # Poco Pref
-baikal.therm.profile                       u:object_r:thermal_prop:s0
+persist.thermal.profile                       u:object_r:thermal_prop:s0
 baikal.eng.therm.profile                       u:object_r:cputhermal_prop:s0
 baikal.eng.perf.profile                  u:object_r:cpuperf_prop:s0
-baikal.perf.profile                  u:object_r:perf_prop:s0
+persist.performance.profile                  u:object_r:perf_prop:s0
 baikal.eng.perf.scr_off                  u:object_r:perf_prop:s0
 persist.baikal.perf.scr_off                  u:object_r:perf_prop:s0
-persist.baikal.perf.idle                  u:object_r:perf_prop:s0
-persist.baikal.therm.default                         u:object_r:defaultthermal_prop:s0
-persist.baikal.perf.default                           u:object_r:defaultperf_prop:s0
+persist.baikal.perf.idle                u:object_r:perf_prop:s0
+persist.therm.default                         u:object_r:defaultthermal_prop:s0
+persist.perf.default                           u:object_r:defaultperf_prop:s0
 persist.nvt_fw                           u:object_r:nvt_prop:s0
 persist.nvt_esd                           u:object_r:esd_prop:s0
 persist.baikal.dolby.enable                           u:object_r:dolby_prop:s0

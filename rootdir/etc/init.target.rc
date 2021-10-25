@@ -40,7 +40,6 @@ on early-init
     mkdir /dsp 0771 media media
     mkdir /firmware 0771 system system
     mkdir /bt_firmware 0771 system system
-    symlink /data/tombstones /tombstones
 
 on init
     write /dev/stune/foreground/schedtune.sched_boost_no_override 1
@@ -608,8 +607,6 @@ service touch_count_dump /vendor/bin/touch_count_dump
     oneshot
 
 on post-fs-data
-    chmod 0666 /dev/migt
-    restorecon /dev/migt
     chmod 0777 /sys/module/migt/parameters/migt_freq
     restorecon /sys/module/migt/parameters/migt_freq
     chmod 0777 /sys/module/migt/parameters/migt_ms
