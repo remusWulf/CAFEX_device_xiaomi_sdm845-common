@@ -161,5 +161,5 @@ ro.vendor.perf.scroll_opt=true
 ro.vendor.iocgrp.config=1
 vendor.power.pasr.enabled=true
 
-
+persist.sys.binary_xml=false
 
