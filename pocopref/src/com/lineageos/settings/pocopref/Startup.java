@@ -47,11 +47,10 @@ public class Startup extends BroadcastReceiver {
         @Override
     public void onReceive(final Context context, final Intent bootintent) {
         // System
-        ThermalUtils.startService(context);
-        PerformanceUtils.startService(context);
-        KCalSettings.restore(context);
-
         VibratorStrengthPreference.restore(context);
         PocoPrefSettings.restore(context);
+        PerformanceUtils.startService(context);
+        KCalSettings.restore(context);
+        ThermalUtils.startService(context);        
     }
 }

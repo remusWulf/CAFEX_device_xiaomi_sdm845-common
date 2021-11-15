@@ -38,7 +38,7 @@
 
     <style name="DeviceSettings.SwitchBar" parent="@android:style/ThemeOverlay.Material.ActionBar">
     </style>
-
+    
 </resources>
 
 

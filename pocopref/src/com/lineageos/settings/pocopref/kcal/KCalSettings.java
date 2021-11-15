@@ -48,7 +48,6 @@ public class KCalSettings extends PreferenceFragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -204,4 +203,3 @@ public class KCalSettings extends PreferenceFragment implements
     }
                           
 }
-

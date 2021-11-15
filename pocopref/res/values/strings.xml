@@ -22,7 +22,8 @@
      <!-- Perf Profiles -->
     <string name="performance_title">Performance Profiles</string>
     <string name="performance_summary">Choose your per-app performance profile</string>
-	
+    <string name="perapp_title">Per-App Profiles</string>
+    	
      <!-- Per app Profile Strings -->
     <string name="default_profiles_title">Default profiles</string>
     <string name="app_profile_performance_title">Performance profile</string>  

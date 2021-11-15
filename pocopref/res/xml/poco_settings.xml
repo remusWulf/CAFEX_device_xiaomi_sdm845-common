@@ -13,6 +13,7 @@
 
     <com.lineageos.settings.pocopref.SecureSettingListPreference
         android:key="vib_waveform"
+        android:icon="@drawable/ic_wave"        
         android:title="@string/vib_waveform_title"
         android:entries="@array/vib_waveform_listentries"
         android:entryValues="@array/vib_waveform_listvalues"
@@ -20,6 +21,50 @@
         android:summary="%s" />
         
     </PreferenceCategory>
+
+   <PreferenceCategory
+        android:key="default_profiles"
+        android:title="@string/default_profiles_title">
+
+        <com.lineageos.settings.pocopref.SecureSettingListPreference
+        android:key="default_perf_profile"
+        android:title="@string/app_profile_performance_title"
+        android:entries="@array/default_perf_listentries"
+        android:entryValues="@array/default_perf_listvalues" 
+        android:icon="@drawable/ic_perf"
+        android:defaultValue="0"
+        android:summary="%s"/>
+
+        <com.lineageos.settings.pocopref.SecureSettingListPreference
+         android:key="default_therm_profile"
+         android:title="@string/app_profile_thermal_title"
+         android:entries="@array/default_therm_listentries"
+         android:icon="@drawable/ic_thermal"
+         android:entryValues="@array/default_therm_listvalues"
+         android:defaultValue="0"
+         android:summary="%s" />          
+
+    </PreferenceCategory>  
+    
+  <PreferenceCategory
+        android:title="@string/perapp_title">
+
+   <PreferenceScreen
+        android:key="perf_display"
+        android:fragment="com.lineageos.settings.pocopref.PerformanceActivity"
+        android:icon="@drawable/ic_perf"       
+        android:summary="@string/performance_summary"
+        android:title="@string/performance_title" />
+        
+  <PreferenceScreen
+        android:key="therm_display"
+        android:fragment="com.lineageos.settings.pocopref.ThermalActivity"
+         android:icon="@drawable/ic_thermal"
+        android:summary="@string/thermal_summary"
+        android:title="@string/thermal_title" />
+
+   </PreferenceCategory>
+
 
     <PreferenceCategory
         android:key="display"
@@ -37,49 +82,5 @@
         android:targetPackage="com.lineageos.settings.pocopref.kcal" />
       </Preference>
   </PreferenceCategory>
-
-  <PreferenceCategory
-        android:title="@string/thermal_title">
-
-  <PreferenceScreen
-        android:key="therm_display"
-        android:fragment="com.lineageos.settings.pocopref.ThermalActivity"
-        android:summary="@string/thermal_summary"
-        android:title="@string/thermal_title" />
-
-   </PreferenceCategory>
-   <PreferenceCategory
-        android:title="@string/performance_title">
-
-   <PreferenceScreen
-        android:key="perf_display"
-        android:fragment="com.lineageos.settings.pocopref.PerformanceActivity"
-        android:summary="@string/performance_summary"
-        android:title="@string/performance_title" />
-
-   </PreferenceCategory>
-
-    
-   <PreferenceCategory
-        android:key="default_profiles"
-        android:title="@string/default_profiles_title">
-
-        <com.lineageos.settings.pocopref.SecureSettingListPreference
-        android:key="default_perf_profile"
-        android:title="@string/app_profile_performance_title"
-        android:entries="@array/default_perf_listentries"
-        android:entryValues="@array/default_perf_listvalues" 
-        android:defaultValue="0"
-        android:summary="%s"/>
-
-        <com.lineageos.settings.pocopref.SecureSettingListPreference
-         android:key="default_therm_profile"
-         android:title="@string/app_profile_thermal_title"
-         android:entries="@array/default_therm_listentries"
-         android:entryValues="@array/default_therm_listvalues"
-         android:defaultValue="0"
-         android:summary="%s" />          
-
-    </PreferenceCategory>  
-
+  
 </PreferenceScreen>

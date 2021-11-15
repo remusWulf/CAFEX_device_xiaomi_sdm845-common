@@ -21,7 +21,10 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class PocoPrefSettingsActivity extends Activity {
+import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
+import com.android.settingslib.collapsingtoolbar.R;
+
+public class PocoPrefSettingsActivity extends CollapsingToolbarBaseActivity {
 
     private PocoPrefSettings mPocoPrefSettingsFragment;
 
@@ -29,13 +32,12 @@ public class PocoPrefSettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Fragment fragment = getFragmentManager().findFragmentById(android.R.id.content);
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.content_frame);
         if (fragment == null) {
             mPocoPrefSettingsFragment = new PocoPrefSettings();
             getFragmentManager().beginTransaction()
-                    .add(android.R.id.content, mPocoPrefSettingsFragment)
+                    .add(R.id.content_frame, mPocoPrefSettingsFragment)
                     .commit();
         } else {
             mPocoPrefSettingsFragment = (PocoPrefSettings) fragment;
