@@ -1,6 +1,2 @@
 allow tee fingerprint_data_file:dir create_dir_perms;
 allow tee fingerprint_data_file:file create_file_perms;
-
-userdebug_or_eng(`
-allow tee tmpfs:dir { open read };
-')

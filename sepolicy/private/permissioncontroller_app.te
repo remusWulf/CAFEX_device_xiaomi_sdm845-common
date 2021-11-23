@@ -1,3 +1,0 @@
-allow permissioncontroller_app vendor_perf_service:service_manager find;
-
-

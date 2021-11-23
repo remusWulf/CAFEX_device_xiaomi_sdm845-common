@@ -1,4 +1,5 @@
 type xiaomiparts_app, domain;
+typeattribute xiaomiparts_app mlstrustedsubject;
 
 app_domain(xiaomiparts_app)
 
@@ -18,3 +19,6 @@ allow xiaomiparts_app cgroup:file rw_file_perms;
 
 # Allow XiaomiParts to write to sysfs_thermal
 allow xiaomiparts_app sysfs_thermal:file w_file_perms;
+
+# Allow XiaomiParts to read and write sysfs_graphics
+allow xiaomiparts_app sysfs_fps:file r_file_perms;
