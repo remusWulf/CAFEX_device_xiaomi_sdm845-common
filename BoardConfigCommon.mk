@@ -108,7 +108,7 @@ TARGET_HAS_WIDE_COLOR_DISPLAY := true
 
 # HIDL
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
-DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
+#DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
 
 # LMKD
 TARGET_LMKD_STATS_LOG := true
